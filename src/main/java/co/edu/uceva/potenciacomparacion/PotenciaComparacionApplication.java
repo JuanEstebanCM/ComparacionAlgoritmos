@@ -290,34 +290,6 @@ public class PotenciaComparacionApplication {
     }
 
     /**
-     * Imprime la tabla de tiempos de ejecucion formateada
-     */
-    public static void imprimirTablaTiempos(List<ResultadoPrueba> resultados) {
-        System.out.println("\n" + "=".repeat(110));
-        System.out.println("TABLA DE TIEMPOS DE EJECUCION");
-        System.out.println("=".repeat(110));
-
-        // Headers
-        System.out.printf("%-8s %-14s %-18s %-18s %-18s %-18s%n",
-                "Base", "Exponente", "Iterativo O(n)", "Divide/Venceras", "Logaritmo O(1)", "Math.pow()");
-        System.out.println("-".repeat(110));
-
-        // Datos
-        for (ResultadoPrueba r : resultados) {
-            System.out.printf("%-8.1f %-14s %-18s %-18s %-18s %-18s%n",
-                    r.base,
-                    formatearNumero(r.exponente),
-                    formatearTiempo(r.tiempoIterativo),
-                    formatearTiempo(r.tiempoDivideVenceras),
-                    formatearTiempo(r.tiempoLogaritmo),
-                    formatearTiempo(r.tiempoNativo)
-            );
-        }
-
-        System.out.println("-".repeat(110));
-    }
-
-    /**
      * Imprime las conclusiones del analisis de complejidad
      */
     public static void imprimirConclusiones() {
@@ -353,32 +325,6 @@ public class PotenciaComparacionApplication {
            Para exponentes grandes, usar Divide y Venceras o Math.pow()
            El metodo iterativo debe evitarse para exponentes > 10,000
         """);
-    }
-
-    /**
-     * Verifica que todos los metodos producen el mismo resultado
-     */
-    public static void verificarResultados(double base, long exponente) {
-        System.out.println("\n" + "=".repeat(80));
-        System.out.println("VERIFICACIÓN DE RESULTADOS");
-        System.out.println("=".repeat(80));
-        System.out.printf("Base: %.2f, Exponente: %d%n%n", base, exponente);
-
-        double resIterativo = potenciaIterativa(base, exponente);
-        double resDivideVenceras = potenciaDivideVenceras(base, exponente);
-        double resLogaritmo = potenciaLogaritmo(base, exponente);
-        double resNativo = potenciaNativa(base, exponente);
-
-        System.out.printf("  Iterativo:          %.10f%n", resIterativo);
-        System.out.printf("  Divide y Vencerás:  %.10f%n", resDivideVenceras);
-        System.out.printf("  Logaritmo:          %.10f%n", resLogaritmo);
-        System.out.printf("  Math.pow() Nativo:  %.10f%n", resNativo);
-
-        // Verificar diferencias
-        System.out.println("\nDiferencias respecto a Math.pow():");
-        System.out.printf("  |Iterativo - Nativo|:         %.2e%n", Math.abs(resIterativo - resNativo));
-        System.out.printf("  |Divide/Vencerás - Nativo|:   %.2e%n", Math.abs(resDivideVenceras - resNativo));
-        System.out.printf("  |Logaritmo - Nativo|:         %.2e%n", Math.abs(resLogaritmo - resNativo));
     }
 
     public static void main(String[] args) {
@@ -446,25 +392,6 @@ public class PotenciaComparacionApplication {
         fin = System.nanoTime();
         System.out.printf("Math.pow():         %.10f (Tiempo: %.6e s)%n",
                 resNat, (fin - inicio) / 1_000_000_000.0);
-
-        // Verificar resultados con exponente pequeño
-        verificarResultados(base, 20);
-
-        // ====================================================================
-        // GENERAR TABLA DE TIEMPOS CON EXPONENTES GRANDES
-        // ====================================================================
-        System.out.println("\n" + "=".repeat(80));
-        System.out.println("GENERANDO TABLA DE TIEMPOS CON EXPONENTES GRANDES");
-        System.out.println("=".repeat(80));
-
-        // Exponentes de prueba
-        long[] exponentes = {10, 100, 1_000, 10_000, 100_000, 1_000_000, 10_000_000};
-
-        // Ejecutar comparación
-        List<ResultadoPrueba> resultados = ejecutarComparacion(base, exponentes);
-
-        // Imprimir tabla de tiempos
-        imprimirTablaTiempos(resultados);
 
         // Imprimir conclusiones
         imprimirConclusiones();
