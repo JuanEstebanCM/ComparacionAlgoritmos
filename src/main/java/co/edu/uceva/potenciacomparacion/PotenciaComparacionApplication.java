@@ -7,7 +7,6 @@ package co.edu.uceva.potenciacomparacion;
  *
  * Estudiantes:
  *   - [Juan Esteban Castañeda Montaño - 230232003]
- *   - [Nombre Estudiante 2]
  *
  *   Este programa implementa y compara cuatro metodos diferentes para
  *   calcular la potencia b^n:
@@ -392,7 +391,6 @@ public class PotenciaComparacionApplication {
         System.out.println();
         System.out.println("Estudiantes:");
         System.out.println("  - [Juan Esteban Castañeda Montaño - 230232003]");
-        System.out.println("  - [Nombre Estudiante 2]");
         System.out.println();
         System.out.println("Este programa implementa y compara cuatro metodos para calcular b^n:");
         System.out.println("  1. Iterativo Tradicional - O(n)");
